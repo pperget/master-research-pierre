@@ -1,0 +1,49 @@
+<div class="container addSchool" style="background-color:#efefef">
+  <h1 style="color: #ff530d;">Ajouter une école</h1>
+  <form class="form-horizontal" name="schoolForm" ng-submit="addSchool.submit(schoolForm.$valid)" novalidate>
+    <div class="form-group">
+      <label class="control-label col-md-4 animated fadeInRight" ng-show="s1" for="schoolName">Nom</label>
+      <div class="col-md-4" ng-class="{'col-md-offset-4': !s1}">
+        <input class="form-control" id="schoolName" type="text" ng-focus="s1=1" ng-blur="s1=0" ng-model="addSchool.school.name" placeholder="Nom" required></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-4 animated fadeInRight" ng-show="s2" for="school-acronym">Acronyme</label>
+      <div class="col-md-4" ng-class="{'col-md-offset-4': !s2}">
+        <input class="form-control" id="school-acronym" type="text" ng-focus="s2=1" ng-blur="s2=0" ng-model="addSchool.school.acronym" placeholder="Acronyme"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-4 animated fadeInRight" ng-show="s3" for="school-postal-code">Code postal</label>
+      <div class="col-md-4" ng-class="{'col-md-offset-4': !s3}">
+        <input class="form-control" id="school-postal-code" type="text" ng-focus="s3=1" ng-blur="s3=0" ng-model="addSchool.school.postalCode" placeholder="Code postal"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-4 animated fadeInRight" ng-show="s4" for="school-city">Ville</label>
+      <div class="col-md-4" ng-class="{'col-md-offset-4': !s4}">
+        <input class="form-control" id="school-city" type="text" ng-focus="s4=1" ng-blur="s4=0" ng-model="addSchool.school.city" placeholder="Ville"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-4 animated fadeInRight" ng-show="s5" for="school-region">Région</label>
+      <div class="col-md-4" ng-class="{'col-md-offset-4': !s5}">
+        <input class="form-control" id="school-region" type="text" ng-focus="s5=1" ng-blur="s5=0" ng-model="addSchool.school.region" placeholder="Région"></input>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-md-4 animated fadeInRight" ng-show="s6" for="school-country">Pays</label>
+      <div class="col-md-4" ng-class="{'col-md-offset-4': !s6}">
+        <input class="form-control" id="school-country" type="text" ng-focus="s6=1" ng-blur="s6=0" ng-model="addSchool.school.country" placeholder="Pays"></input>
+      </div>
+    </div>
+    <div class="col-md-4 col-md-offset-4">
+      <button class="btn btn-default" type="button" ng-click="addSchool.reset()">Réinitialiser</button>
+      <button class="btn btn-default" type="submit">Soumettre</button>
+    </div>
+  </form>
+</div>
+<!--
+<p>form = {{addSchool.school}}</p>
+<p>default = {{addSchool.default}}</p>
+-->

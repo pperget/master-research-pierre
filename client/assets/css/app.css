@@ -1,0 +1,245 @@
+#ngView {
+  min-height:100%;
+}
+
+.navbar{
+  margin:auto;
+  background: #2B3A42;
+}
+
+body {
+  padding-top: 50px; /* Class navbar-fixed-top overlay fix */
+}
+
+.container-fluid ul li a {
+  color: #FF530D;
+  letter-spacing: 1px;
+  font-size: 16px;
+  position: relative;
+  color: #000;
+  text-decoration: none;
+}
+
+.container-fluid ul li a:hover {
+  color: #FF530D;
+}
+
+.container-fluid ul li a:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #FF530D;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+.container-fluid ul li a:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+.home {
+  margin:auto;
+  position: relative;
+  opacity: 0.9;
+}
+
+#title {
+  color: white;
+  font: bold 24px/45px Helvetica, Sans-serif;
+  letter-spacing: 2px;
+  background: rgb(0,0,0);
+  background: rgba(0,0,0,0.7);
+  padding: 10px;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  font-size:200%;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+#nbData {
+  background-color:#EFEFEF;
+  padding: 20px;
+}
+
+#nbSchools {
+  font: bold 24px/45px Helvetica, Sans-serif;
+  letter-spacing: 2px;
+}
+
+#nbCourses {
+  padding-top: 10px;
+  font: bold 24px/45px Helvetica, Sans-serif;
+  letter-spacing: 2px;
+}
+
+#mapMaster {
+  background-image: url("../img/map.jpeg");
+  width:100%;
+  min-height:100%;
+  padding-bottom: 20px;
+}
+
+#map {
+  margin-top: 20px;
+  height: 800px;
+}
+
+
+#listMaster {
+  margin-top: 20px;
+}
+
+#ulMaster {
+  list-style: none;
+  height:720px;
+  overflow-y: scroll;
+}
+
+#search {
+  height: 50px;
+  font-size: 20px;
+}
+
+.modal-content {
+  letter-spacing: 1px;
+  font-size: 16px;
+}
+
+#master {
+  list-style: none;
+  margin-left: -30px;
+  margin-bottom: 20px;
+  padding: 10px;
+  letter-spacing: 1px;
+  font-size: 16px;
+  background-color: #EFEFEF;
+  position: relative;
+  color: #000;
+  text-decoration: none;
+}
+
+#master:hover {
+  cursor: pointer;
+  color: #000;
+}
+
+#master:before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: 0;
+  left: 0;
+  background-color: #FF530D;
+  visibility: hidden;
+  -webkit-transform: scaleX(0);
+  transform: scaleX(0);
+  -webkit-transition: all 0.3s ease-in-out 0s;
+  transition: all 0.3s ease-in-out 0s;
+}
+
+#master:hover:before {
+  visibility: visible;
+  -webkit-transform: scaleX(1);
+  transform: scaleX(1);
+}
+
+#masterSelect {
+  background-color: #EFEFEF;
+  border-radius: 10px;
+  border: 1px solid #FF530D;
+  padding: 10px;
+  width: 100%;
+}
+
+#imgMaster {
+  opacity: 0.5;
+}
+.animate-show-hide.ng-hide {
+  opacity: 0;
+}
+
+.animate-show-hide.ng-hide-add,
+.animate-show-hide.ng-hide-remove {
+  transition: all linear 0.4s;
+}
+
+#back {
+  font-size: 30px;
+}
+
+#back:hover {
+  cursor: pointer;
+  color: #FF530D;
+}
+
+#masterName {
+  letter-spacing: 1px;
+  font-size: 20px;
+}
+
+#commentPost {
+  letter-spacing: 1px;
+  font-size: 14px;
+}
+
+#comment {
+  height: 120px;
+}
+
+.addSchool {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  height: 700px;
+}
+
+#footer {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background-color: #2B3A42;
+  left: 50%;
+}
+
+#footer ul li a{
+  color:black;
+  font-size: 20px;
+  letter-spacing: 1px;
+  padding: 15px;
+  text-decoration: none;
+}
+
+#footer ul li a:hover{
+  color: #FF530D;
+}

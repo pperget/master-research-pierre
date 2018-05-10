@@ -1,0 +1,63 @@
+<div class="container-fluid" id="mapMaster">
+  <!-- HEADER MAP + LISTE DES MASTER -->
+  <div class="row animated fadeInDown" id="nbData">
+    <div class="col-sm-6">
+      <center><span id="nbSchools"> {{ research.schools.length }} écoles</span></center><br>
+    </div>
+    <div class="col-sm-6">
+      <center><span id="nbCourses"> {{ research.courses.length }} masters</span></center><br>
+    </div>
+  </div>
+  <!-- FIN HEADER MAP + LISTE DES MASTER -->
+  <div class="row">
+    <!-- MAP LEAFLET -->
+    <div class="col-sm-8">
+      <leaflet class="animated fadeInLeft" id="map" on-map-initialized="research.onMapInitialized(map)"></leaflet>
+    </div>
+    <!-- FIN MAP LEAFLET -->
+    <div class="col-sm-4 ng-show animated fadeInRight" id="listMaster">
+      <!-- MASTER -->
+      <div class="animate-show-hide" ng-show="research.flag" id="masterSelect">
+        <div ng-click="research.back()" id="back" class="glyphicon glyphicon-chevron-left"></div>
+        <div id="masterName">
+          {{ research.master.acronym }}<br>
+          {{ research.master.name }}<br>
+          Lien vers le site source
+        </div>
+        <div id="commentPost">
+          <form novalidate class="form-horizontal">
+            <div class="form-group">
+              <div class="col-sm-12">
+                <span class="glyphicon glyphicon-comment"></span> Ajouter un commentaire
+                <textarea class="form-control" id="comment" type="text" ng-model="addComment"></textarea>
+                <button type="submit" class="btn btn-default" ng-click="console.log('submit')">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- FIN MASTER -->
+      <!-- LISTE DES MASTERS -->
+      <div class="animate-show-hide" ng-hide="research.flag" id="listM">
+        <div class="form-group">
+          <p><input class="form-control input-sm" id="search" type="text" placeholder="Recherchez une formation" value="" ng-model="test"></p>
+        </div>
+        <ul id="ulMaster">
+          <li id="master" ng-click="research.select(e)" ng-repeat="e in research.courses | filter : test" ng-bind="e.name"></li>
+        </ul>
+      </div>
+    </div>
+    <!-- FIN LISTE DES MASTERS -->
+  </div>
+  <!-- FENETRE MODALE -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <p id="school"></p>
+      <span id="nbMasterBySchool"></span> Master(s) disponible(s) dans cet établissement :
+      <ul id="masterModal">
+      </ul>
+    </div>
+  </div>
+  <!-- FIN FENETRE MODALE -->
+</div>
