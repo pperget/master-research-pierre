@@ -1,7 +1,20 @@
+/* DEBUT CSS HOME */
+
+#part {
+  padding-top: 20px;
+  position: relative;
+  margin-right: 30px;
+  height: 250px;
+  border-radius: 10px 10px 0px 0px;
+  cursor: pointer;
+  box-shadow: 1px 1px 12px #555;
+}
+
 #ngView {
   min-height:100%;
 }
 
+/* FIN CSS HOME */
 .navbar{
   margin:auto;
   background: #2B3A42;
@@ -46,6 +59,7 @@ body {
 }
 
 .home {
+  height:1000px;
   margin:auto;
   position: relative;
   opacity: 0.9;
