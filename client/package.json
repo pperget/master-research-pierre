@@ -10,9 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.9",
-    "angular-animate": "^1.6.10",
-    "angular-leaflet-light": "^0.2.1",
     "angular-route": "^1.6.9",
+    "angular-ui-bootstrap": "^2.5.6",
     "animate.css": "^3.6.1",
     "bootstrap": "^3.3.7",
     "hover.css": "^2.3.1",

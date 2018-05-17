@@ -1,0 +1,100 @@
+<!-- Main container -->
+<div class="container white-bg bs animated fadeInDown">
+
+  <!-- Title -->
+  <div class="row">
+    <div class="col-md-6">
+      <div class="col-md-offset-3 col-md-9">
+        <h1 style="text-align:center;color:#ff530d;" ng-bind="vm.title"></h1>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main row -->
+  <div class="row">
+
+    <!-- Left column -->
+    <div class="col-md-6">
+
+      <!-- Form -->
+      <form class="form-horizontal" name="mrForm" ng-submit="vm.submit(mrForm.$valid)" novalidate>
+
+        <!-- Loop through the properties of vm.conf -->
+        <div class="form-group has-feedback" ng-class="mrForm.{{obj.name}}.$pristine ? 'has-warning' : mrForm.{{obj.name}}.$invalid ? 'has-error' : 'has-success'" ng-repeat="(key, obj) in vm.conf">
+
+          <!-- Label -->
+          <label class="col-md-3 control-label animated fadeInRight" ng-class="{'ng-hide': mrForm.{{obj.name}}.$pristine}" for="{{obj.id}}" ng-bind="obj.placeholder"></label>
+
+          <!-- Input or select -->
+          <div class="col-md-9" ng-class="{'col-md-offset-3': mrForm.{{obj.name}}.$pristine}">
+
+            <!-- Input -->
+            <input class="form-control" id="{{obj.id}}" name="{{obj.name}}" type="{{obj.type}}" placeholder="{{obj.placeholder}}" ng-if="obj.kind == 'input'" ng-model="vm.temp[key]"  ng-maxlength="obj.maxlength" ng-required="obj.required"></input>
+
+            <!-- Select -->
+            <select class="form-control" id="{{obj.id}}" name="{{obj.name}}" type="{{obj.type}}" ng-if="obj.kind == 'select'" ng-model="vm.temp[key]" ng-required="obj.required">
+              <option disabled selected value="{{vm.temp.key}}" ng-bind="obj.placeholder"></option>
+              <option ng-repeat="option in obj.options" ng-value="option" ng-bind="option"></option>
+            </select>
+
+            <!-- Feedback -->
+            <span class="form-control-feedback glyphicon" ng-class="mrForm.{{obj.name}}.$pristine ? 'glyphicon-warning-sign' : mrForm.{{obj.name}}.$invalid ? 'glyphicon-remove' : 'glyphicon-ok'"></span>
+
+          </div>
+        </div>
+
+        <!-- Reset and send buttons -->
+        <div class="row bottom-buffer">
+
+          <!-- Reset -->
+          <div class="col-md-3">
+            <button class="btn btn-default btn-block" type="button" ng-click="vm.reset(mrForm)"><i class="glyphicon glyphicon-trash"></i></button>
+          </div>
+
+          <!-- Send -->
+          <div class="col-md-9">
+            <button class="btn btn-default btn-block" type="submit" ng-disabled="mrForm.$submitted"><i class="glyphicon glyphicon-send"></i></button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+
+    <!-- Right column -->
+    <div class="col-md-6">
+
+      <!-- Animation -->
+      <div class="row bottom-buffer">
+        <div class="col-md-12">
+          <img class="infinite-rotation" src="assets/img/circle.svg" alt="circle" style="width:256px;height:256px;display:block;margin-left:auto;margin-right:auto;">
+        </div>
+      </div>
+
+      <!-- Alert -->
+      <div class="row">
+        <div class="col-md-12" ng-switch="vm.alert">
+          <!-- Success -->
+          <div class="alert alert-success" ng-switch-when="success">
+            <strong>Félicitations :</strong> <span ng-bind="vm.message"></span>
+          </div>
+          <!-- Warning -->
+          <div class="alert alert-warning" ng-switch-when="warning">
+            <strong>Attention :</strong> <span ng-bind="vm.message"></span>
+          </div>
+          <!-- Error -->
+          <div class="alert alert-danger" ng-switch-when="error">
+            <strong>Oups :</strong> <span ng-bind="vm.message"></span>
+          </div>
+          <!-- Thanks -->
+          <div class="alert alert-info" ng-switch-default>
+            <strong>Info :</strong> <span ng-bind="vm.message"></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Do not forget -->
+<!-- Conditional (ternary) operator : condition ? expr1 : expr2  -->

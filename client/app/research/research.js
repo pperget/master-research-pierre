@@ -3,98 +3,139 @@
 
   angular
     .module('app.research')
-    .controller('ResearchCtrl', ResearchCtrl);
+    .controller('Research', Research);
 
-  function ResearchCtrl(DAO) {
-    var research = this;
+  function Research($scope, DAO) {
+    var vm = this;
 
-    DAO.getCourses().then(function(response) {
-      research.courses = response.data;
-    }, function(response) {
-    });
+    vm.contentState = 'all';
+    vm.research = '';
+    vm.category = 'Écoles';
 
-    var modal = document.getElementById('myModal');
-    var span = document.getElementsByClassName("close")[0];
-
-    span.onclick = function() {
-      modal.style.display = "none";
-      angular.element(document.getElementById('masterModal')).html('');
-    }
-    window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-        angular.element(document.getElementById('masterModal')).html('');
+    vm.changeCategory = function() {
+      if (vm.category === 'Formations') {
+        vm.category = 'Écoles';
+      } else {
+        vm.category = 'Formations';
       }
-    }
-
-    /*début fonction modale*/
-    research.onClick = function(e) {
-      var school;
-      var nbMastersBySchool = 0;
-      modal.style.display = "block";
-      for (var i=0; i<research.schools.length; i++){
-        if (research.schools[i].location.coordinates[0] == e.latlng.lat || research.schools[i].location.coordinates[1] == e.latlng.lat){
-          school = research.schools[i]._id;
-          angular.element(document.getElementById('school')).html('<p id="school">'+research.schools[i].name+'</p>');
-        }
-      }
-      for (var i=0; i<research.courses.length; i++){
-        if (research.courses[i].school == school){
-          nbMastersBySchool +=1;
-          angular.element(document.getElementById('masterModal')).append('<li id="master" ng-click="research.select(e)">'+research.courses[i].name+'</li>');
-        }
-      }
-      angular.element(document.getElementById('nbMasterBySchool')).html(nbMastersBySchool);
-    }
-    /*fin fonction modale*/
-
-    research.onMapInitialized = function(map) {
-      research.leaflet = map;
-      research.leaflet.setView([46.61,2.72]);
-      research.leaflet.setZoom(6);
-      L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-    		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
-    		maxZoom: 18,
-    		id: 'mapbox.streets',
-    		accessToken: 'pk.eyJ1IjoicHBlcmdldCIsImEiOiJjamZibjlibzcyNXgyMnhucjFxemc5YWQxIn0.ZTNERHrUn5YkoD6sUEJx_Q'
-    	}).addTo(research.leaflet);
-
-      var masterIcon = L.icon({
-        iconUrl: 'assets/img/master-icon.png',
-        shadowUrl: 'assets/img/master-icon.png',
-
-        iconSize:     [32, 48], // size of the icon
-        shadowSize:   [32, 48], // size of the shadow
-        iconAnchor:   [16, 32], // point of the icon which will correspond to marker's location
-        shadowAnchor: [16, 32],  // the same for the shadow
-        popupAnchor:  [0, -32] // point from which the popup should open relative to the iconAnchor
-      });
-
-      DAO.getSchools().then(function(response){
-        research.schools = response.data
-        var list = research.schools;
-        var markers = L.markerClusterGroup({
-          maxClusterRadius: 30,
-        });
-        for(var i = 0;i<list.length;i++){
-            markers
-            .addLayer(
-              L.marker(list[i].location.coordinates, {icon: masterIcon})
-              .on('click', research.onClick)
-            );
-            research.leaflet.addLayer(markers);
-            //console.log(list[i], list[i].location.coordinates);
-        }
-      });
     };
 
-    research.select = function(e){
-      research.master = e;
-      research.flag = true;
+    vm.reset = function() {
+      vm.research = '';
+    };
+
+    vm.school = {};
+    vm.showSchool = function(schoolId) {
+      // Change content view state
+      vm.contentState = 'one';
+      // Find the school
+      vm.school = vm.schools.find(school => school._id === schoolId);
+      // Find the courses
+      vm.course = vm.courses.filter(course => course.school.includes(schoolId));
+      // Map animation
+      vm.map.flyTo(vm.school.location.coordinates, 12, {duration: 3});
+    };
+
+    vm.course = [];
+    vm.courseFormerStudent = [];
+    vm.showCourse = function(courseId) {
+      // Change content view state
+      vm.contentState = 'one';
+      // Find the course
+      vm.course = [vm.courses.find(course => course._id === courseId)];
+      // Find the school
+      vm.school = vm.schools.find(school => school._id === vm.course[0].school);
+      // Rajout Pierre
+      // Find student by school
+      vm.test(courseId);
+      vm.courseFormerStudent = vm.courseFormerStudents;
+      // Map animation
+      vm.map.flyTo(vm.school.location.coordinates, 12, {duration: 3});
+    };
+
+    // Map base settings
+    vm.map = L.map('mapid');
+    vm.map.setView([46.61, 2.72], 6);
+    L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+  		attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      // minZoom: 6,
+      // maxZoom: 18,
+  		id: 'mapbox.streets',
+  		accessToken: 'pk.eyJ1IjoicHBlcmdldCIsImEiOiJjamZibjlibzcyNXgyMnhucjFxemc5YWQxIn0.ZTNERHrUn5YkoD6sUEJx_Q'
+  	}).addTo(vm.map);
+
+    // Get schools
+    vm.schools = [];
+    DAO.getSchools().then(function(response) {
+      vm.schools = response.data;
+
+      // Map markers
+      var schoolIcon = L.icon({
+        iconUrl: 'assets/img/master-icon.png',
+        shadowUrl: 'assets/img/master-icon.png',
+        iconSize: [32, 48],
+        shadowSize: [32, 48],
+        iconAnchor: [16, 32],
+        shadowAnchor: [16, 32],
+        popupAnchor: [0, -32]
+      });
+
+      // Map clusters
+      var markers = L.markerClusterGroup({
+        maxClusterRadius: 30
+      });
+
+      // Set markers coordinates, icon, bind popup and click event
+      for (var i = 0; i < vm.schools.length; i++) {
+        markers
+          .addLayer(
+            L.marker(vm.schools[i].location.coordinates, {icon: schoolIcon})
+              .bindPopup(vm.schools[i].name)
+              .on('click', function(e) {
+                // Retrieve marker coordinates
+                var markerCoordinates = e.target.getLatLng();
+                // Find the school id by coordinates
+                var schoolId = vm.schools.find(school => school.location.coordinates[0] === markerCoordinates.lat && school.location.coordinates[1] === markerCoordinates.lng)._id;
+                // Show the school
+                vm.showSchool(schoolId);
+                // Tell the scope to watch for changes now, otherwise it won't be aware of changes
+                $scope.$digest();
+              })
+          );
+      }
+      // Add the markers to the map
+      vm.map.addLayer(markers);
+    }, function(response) {
+      console.log('Error during getSchools');
+    });
+
+    // Get courses
+    vm.courses = [];
+    DAO.getCourses().then(function(response) {
+      vm.courses = response.data;
+    }, function(response) {
+      console.log('Error during getCourses');
+    });
+
+    // Get former students
+    vm.formerStudents = [];
+    DAO.getFormerStudents().then(function(response) {
+      vm.formerStudents = response.data;
+    }, function(response) {
+      console.log('Error during getformerStudents');
+    });
+
+    // Rajout Pierre
+    // Get course former students
+    vm.courseFormerStudents = [];
+    vm.test = function(courseId) {
+      DAO.getCourseFormerStudents(courseId).then(function(response) {
+        vm.courseFormerStudents = response.data;
+      }, function(response) {
+        console.log('Error during getCourseFormerStudents');
+      });
     }
 
-    research.back = function(){
-      research.flag = false;
-    }
   }
+
 })();

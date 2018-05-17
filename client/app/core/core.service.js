@@ -15,7 +15,11 @@
       getCourse: getCourse,
       getCourseFormerStudents: getCourseFormerStudents,
       getFormerStudents: getFormerStudents,
-      getFormerStudent: getFormerStudent
+      getFormerStudent: getFormerStudent,
+      getCoordinates: getCoordinates,
+      postSchool: postSchool,
+      postCourse: postCourse,
+      postFormerStudent: postFormerStudent
     };
 
     return service;
@@ -50,6 +54,23 @@
 
     function getFormerStudent(formerStudentId) {
       return $http.get('http://localhost:3000/formerStudent/'+formerStudentId);
+    }
+
+    function getCoordinates(name, city) {
+      var address = 'https://maps.googleapis.com/maps/api/geocode/json?address='+name+city+'&key=AIzaSyCqvUga640ZS4oGHgjk-bsrjjwMd-BzYnw';
+      return $http.get(address.replace(/ /g, '+'));
+    }
+
+    function postSchool(school) {
+      return $http.post('http://localhost:3000/school', school);
+    }
+
+    function postCourse(course) {
+      return $http.post('http://localhost:3000/course', course);
+    }
+
+    function postFormerStudent(formerStudent) {
+      return $http.post('http://localhost:3000/formerStudent', formerStudent);
     }
   }
 

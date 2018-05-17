@@ -6,18 +6,38 @@
     .config(function ($routeProvider, $locationProvider) {
       $routeProvider
         .when('/', {
-          templateUrl: 'app/home/home.html',
-          // controller: ''
+          title: 'Accueil',
+          templateUrl: 'app/home/home.html'
         })
         .when('/research', {
+          title: 'Recherche',
           templateUrl: 'app/research/research.html',
-          controller: 'ResearchCtrl',
-          controllerAs: 'research'
+          controller: 'Research',
+          controllerAs: 'vm'
         })
-        .when('/addSchool', {
-          templateUrl: 'app/form/addSchool.html',
-          controller: 'AddSchoolCtrl',
-          controllerAs: 'addSchool'
+        .when('/stats', {
+          title: 'Statistiques',
+          templateUrl: 'app/stats/stats.html',
+          controller: 'Stats',
+          controllerAs: 'vm'
+        })
+        .when('/postSchool', {
+          title: 'Ajouter une école',
+          templateUrl: 'app/contribute/post.html',
+          controller: 'PostSchool',
+          controllerAs: 'vm'
+        })
+        .when('/postCourse', {
+          title: 'Ajouter une formation',
+          templateUrl: 'app/contribute/post.html',
+          controller: 'PostCourse',
+          controllerAs: 'vm'
+        })
+        .when('/postFormerStudent', {
+          title: 'Ajouter un ancien étudiant',
+          templateUrl: 'app/contribute/post.html',
+          controller: 'PostFormerStudent',
+          controllerAs: 'vm'
         })
         .otherwise({
           redirectTo: '/'
@@ -26,6 +46,11 @@
       $locationProvider
         .hashPrefix('!');
         // .html5Mode(true);
+    })
+    .run(function($rootScope, $route) {
+      $rootScope.$on('$routeChangeSuccess', function() {
+        document.title = $route.current.title;
+      });
     });
 
 })();

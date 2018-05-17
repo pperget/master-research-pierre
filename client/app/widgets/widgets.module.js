@@ -2,8 +2,8 @@
   'use strict';
 
   angular
-    .module('app.research', [
-      'app.core'
+    .module('app.widgets', [
+      'ui.bootstrap'
     ]);
 
 })();

@@ -1,0 +1,21 @@
+<nav class="navbar navbar-default navbar-fixed-top" ng-controller="Navbar as vm" role="navigation">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#!/"><img src="assets/img/logo.svg" alt="logo" style="width:8vw;height:8vh;"/></a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li ng-class="{active: vm.isActive('/')}"><a href="#!/"><span class="glyphicon glyphicon-home"></span> Accueil</a></li>
+      <li ng-class="{active: vm.isActive('/research')}"><a href="#!/research"><span class="glyphicon glyphicon-search"></span> Rechercher</a></li>
+      <li ng-class="{active: vm.isActive('/stats')}"><a href="#!/stats"><span class="glyphicon glyphicon-stats"></span> Statistiques</a></li>
+      <li ng-class="{active: vm.isActive('/postSchool') || vm.isActive('/postCourse') || vm.isActive('/postFormerStudent')}" uib-dropdown>
+        <a id="contribute-dropdown" uib-dropdown-toggle href><span class="glyphicon glyphicon-education"></span> Contribuer
+        <span class="caret"></span></a>
+        <ul uib-dropdown-menu aria-labelledby="contribute-dropdown">
+          <li ng-class="{active: vm.isActive('/postSchool')}"><a href="#!/postSchool">Ajouter une école</a></li>
+          <li ng-class="{active: vm.isActive('/postCourse')}"><a href="#!/postCourse">Ajouter une formation</a></li>
+          <li ng-class="{active: vm.isActive('/postFormerStudent')}"><a href="#!/postFormerStudent">Ajouter un ancien étudiant</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
